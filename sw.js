@@ -27,20 +27,20 @@ self.addEventListener('install', function(event){
     if (!event.waitUntil){
         logError('Error! event.waitUntil() not supported :(');
     }
-    self.postMessage('message','Estoy vivo!!')
+
     // jump to activate stage without waiting for currentlty controlled clients to close
     //self.skipWaiting()
 
     event.waitUntil(
         // hold the service worker in the installing phase until tasks complete. 
-        // If the promise passed to waitUntil() rejects, the install is considered a failure, and the installing service worker is discarded. 
-        // This is primarily used to ensure that a service worker is not considered installed until all of the core caches it depends on are successfully populated.
+        // If the promise passed to waitUntil() rejects, the install is considered a failure, and the installing service worker is discarded.     
 
         new Promise(resolve => {
-            resolve()//setInterval(() => { resolve() }, 1000)
+            // wait 3 secs to dramatize the initialization
+            setInterval(() => { resolve() }, 3000)
         })    
-        .then( ev => {
-            log('1) SW Installed', ev);
+        .then(() => {
+            log('1) SW Installed');
         })
         .catch(err => {
             logError('Error! Installing..', err);

@@ -15,12 +15,6 @@ export function scripts(){
         }
     };
 
-    window.addEventListener('message', function(m){
-        debugger
-        console.log(m)
-        loggger.log(m)
-    })
-
     window.addEventListener('load', function(){
         const hash = '1232114766'; //Date.now();
 
