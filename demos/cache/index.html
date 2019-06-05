@@ -23,29 +23,59 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 
-	<script type="module" src="./cache-register.js"></script>
+	<script type="module" src="./messages-register.js"></script>
 </head>
 
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<div id="SwNotSupportedAlert" class="col-sm d-none">
+		<div class="row m-2">
+			<div id="SwNotSupportedAlert" class="col d-none">
 				Este navegador no soporta Service Workers <i class="far fa-sad-cry"></i>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm">
+		<div class="row m-2">
+			<div class="col-12">
 				<img src="../../assets/images/tekman_logo.png">
 			</div>
 		</div>
-		<p></p>
-		<div class="row">
-			<ul id="swStatus"></ul>
+		<div class="row m-2">
+			<div class="col-3">
+				<button onclick="sendMessage()" ><h6 class="p-1 m-0">Say hello to Sw..</h6></button>
+			</div>			
+			<div class="col">
+				<div id="swMessageViewer" class="badge badge-success d-none"><h4 class="p-1 m-0"></h4></div>
+			</div>
+		</div>
+		<div class="row m-4"></div>	
+		<div class="row m-2">
+			<div class="col-12">
+				<ul id="swStatus" class="list-group list-group-flush">
+					<li class="list-group-item active p-2"><h6 class="m-0">SW Status</h6></li>
+				</ul>
+			</div>
 		</div>		
 	</div>
+	<script>
+		function sendMessage(){
+			if (!navigator.serviceWorker || !navigator.serviceWorker.controller){
+				console.warn('No support for serviceWorker or not initialized')			
+				return;
+			}
 
+			navigator.serviceWorker.controller.postMessage(['Hola service worker!']);
+
+			navigator.serviceWorker.addEventListener('message', function(event){			
+				const div = document.getElementById('swMessageViewer');
+				div.firstElementChild.innerHTML = event.data
+				div.classList.remove('d-none')
+				setTimeout(function(){
+					div.classList.add('d-none')
+				}, 2000)
+			});
+		}
+	</script>
 	<script type="module">
-		import { register } from './cache-register.js'
+		import { register } from './messages-register.js'
 		register()
 	</script>
 </body>

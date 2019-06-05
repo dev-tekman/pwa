@@ -1,8 +1,4 @@
 export function register(){
-    if (!('serviceWorker' in navigator)) {
-        $('#SwNotSupportedAlert').show();
-        return;
-    } 
 
     const loggerObj = $('#swStatus');
     const logger = {

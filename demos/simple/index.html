@@ -30,7 +30,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div id="SwNotSupportedAlert" class="col-sm d-none">
-				Este navegador no soporta Service Workers <i class="far fa-sad-cry"></i>
+				<div class="alert alert-danger" role="alert">Este navegador no soporta Service Workers <i class="far fa-sad-cry"></i></div>
 			</div>
 		</div>
 		<div class="row">
@@ -43,7 +43,14 @@
 			<ul id="swStatus"></ul>
 		</div>		
 	</div>
-
+	<script>
+		$(document).ready(function(){
+			if (!('serviceWorker' in navigator)) {
+				$('#SwNotSupportedAlert').removeClass('d-none');
+				return;
+			} 
+		})
+	</script>
 	<script type="module">
 		import { register } from './simple-register.js'
 		register()

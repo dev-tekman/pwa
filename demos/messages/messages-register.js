@@ -7,16 +7,16 @@ const register = function(){
     const loggerObj = $('#swStatus');
     const logger = {
         log: function(text, obj){
-            loggerObj.append($('<li>').html(text));
+            loggerObj.append($('<li>').html(text).addClass('list-group-item'));
         },
         error: function(text, err){
             console.warn(err);
-            loggerObj.append($('<li>').html(text)).addClass('red');
+            loggerObj.append($('<li>').html(text).addClass('list-group-item').addClass('list-group-item-danger'));
         }
     };
 
     window.addEventListener('load', function(){
-        const hash = '1232121l4766'; //Date.now();
+        const hash = '123212s123l4766'; //Date.now();
 
         navigator.serviceWorker.register(`messages-sw.js?${hash}`) //, { scope: '/'}
         .then(function(reg){
