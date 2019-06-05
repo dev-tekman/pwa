@@ -48,8 +48,7 @@ export function scripts(){
 
         })
         .catch(function(err){
-            debugger;
-            console.warn('ServiceWorker registration failed: ', err);
+            console.error(`ServiceWorker registration failed. ${err.name} => ${err.message}`, );
         });
 
         navigator.serviceWorker.addEventListener('controllerchange', () => {
