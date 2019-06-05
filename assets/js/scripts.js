@@ -18,7 +18,7 @@ export function scripts(){
     window.addEventListener('load', function(){
         const hash = '1232114766'; //Date.now();
 
-        navigator.serviceWorker.register(`sw.js?${hash}`, { scope: '/'})
+        navigator.serviceWorker.register(`sw.js?${hash}`) //, { scope: '/'}
         .then(function(reg){
             logger.log(`ServiceWorker registration successful with scope: ${reg.scope}`);
 
