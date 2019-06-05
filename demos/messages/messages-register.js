@@ -1,4 +1,4 @@
-export function scripts(){
+const register = function(){
     if (!('serviceWorker' in navigator)) {
         $('#SwNotSupportedAlert').show();
         return;
@@ -16,9 +16,9 @@ export function scripts(){
     };
 
     window.addEventListener('load', function(){
-        const hash = '1232114766'; //Date.now();
+        const hash = '1232121l4766'; //Date.now();
 
-        navigator.serviceWorker.register(`sw.js?${hash}`) //, { scope: '/'}
+        navigator.serviceWorker.register(`messages-sw.js?${hash}`) //, { scope: '/'}
         .then(function(reg){
             logger.log(`ServiceWorker registration successful with scope: ${reg.scope}`);
 
@@ -50,14 +50,9 @@ export function scripts(){
         .catch(function(err){
             console.error(`ServiceWorker registration failed. ${err.name} => ${err.message}`, );
         });
-
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            // This fires when the service worker controlling this page
-            // changes, eg a new worker has skipped waiting and become
-            // the new active worker.
-        });
     });
+}
 
-
-
+export {
+    register
 }

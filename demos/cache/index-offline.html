@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="noindex,nofollow">
+	<title>on the road to PWA</title>
+	<script type="module" src="./cache-register.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="SwNotSupportedAlert" class="col-sm">
+				OK!
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				<img src="assets/images/tekman_logo.png">
+			</div>
+		</div>
+		<p></p>
+		<div class="row">
+			<ul id="swStatus"></ul>
+		</div>		
+
+	</div>
+
+	<script type="module">
+		import { scripts } from './assets/js/scripts.js'
+
+		$(document).ready(scripts);        
+	</script>
+</body>
+
+</html>
