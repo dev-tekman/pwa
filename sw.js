@@ -49,5 +49,5 @@ self.addEventListener('install', function(event){
 });
 
 self.addEventListener('fetch', function(event) {
-    console.log('request', event.request.url)
+    console.log('Requested resource: ', event.request.url)
 });
