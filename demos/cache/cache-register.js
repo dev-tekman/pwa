@@ -1,9 +1,4 @@
 export function register(){
-    if (!('serviceWorker' in navigator)) {
-        $('#SwNotSupportedAlert').show();
-        return;
-    } 
-
     const loggerObj = $('#swStatus');
     const logger = {
         log: function(text, obj){
@@ -18,7 +13,7 @@ export function register(){
     window.addEventListener('load', function(){
         const hash = '1232114766'; //Date.now();
 
-        navigator.serviceWorker.register(`simple-sw.js?${hash}`) //, { scope: '/'}
+        navigator.serviceWorker.register(`cache-sw.js?${hash}`) //, { scope: '/'}
         .then(function(reg){
             logger.log(`ServiceWorker registration successful with scope: ${reg.scope}`);
 

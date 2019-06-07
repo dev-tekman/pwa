@@ -23,7 +23,7 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 
-	<script type="module" src="./messages-register.js"></script>
+	<script type="module" src="./cache-register.js"></script>
 </head>
 
 <body>
@@ -34,16 +34,13 @@
 			</div>
 		</div>
 		<div class="row m-2">
-			<div class="col-12">
-				<img src="../../assets/images/tekman_logo.png">
-			</div>
+			<div class="col-3">
+				<button onclick="switchLogo()" ><h6 class="p-1 m-0">Switch logo</h6></button>
+			</div>			
 		</div>
 		<div class="row m-2">
-			<div class="col-3">
-				<button onclick="sendMessage()" ><h6 class="p-1 m-0">Say hello to Sw..</h6></button>
-			</div>			
-			<div class="col">
-				<div id="swMessageViewer" class="badge badge-success d-none"><h4 class="p-1 m-0"></h4></div>
+			<div class="col-12">
+				<img id="imagePlaceholder" src="../../assets/images/tekman_logo.png">
 			</div>
 		</div>
 		<div class="row m-4"></div>	
@@ -56,26 +53,20 @@
 		</div>		
 	</div>
 	<script>
-		function sendMessage(){
-			if (!navigator.serviceWorker || !navigator.serviceWorker.controller){
-				console.warn('No support for serviceWorker or not initialized')			
-				return;
-			}
+		let current = 0;
+		const logos = [
+			'../../assets/images/error-hero.jpg',
+			'../../assets/images/tekman_logo.png'
+		]
 
-			navigator.serviceWorker.controller.postMessage(['Hola service worker!']);
-
-			navigator.serviceWorker.addEventListener('message', function(event){			
-				const div = document.getElementById('swMessageViewer');
-				div.firstElementChild.innerHTML = event.data
-				div.classList.remove('d-none')
-				setTimeout(function(){
-					div.classList.add('d-none')
-				}, 2000)
-			});
+		function switchLogo(){
+			const elem = document.getElementById('imagePlaceholder');
+			current = (current) ? 0 : 1
+			elem.src = logos[current];			
 		}
 	</script>
 	<script type="module">
-		import { register } from './messages-register.js'
+		import { register } from './cache-register.js'
 		register()
 	</script>
 </body>

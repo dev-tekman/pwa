@@ -1,3 +1,12 @@
+const CACHE_NAME = 'dev-tekman-v1'
+const uris = [
+    '/demos/cache/',
+    '/demos/cache/index.html',
+    '/demos/cache/cache-register.js',
+    '/assets/images/error-hero.jpg'
+]
+
+
 function log(text, obj){
     console.log(text, obj)
 }
@@ -12,30 +21,31 @@ self.addEventListener('activate', async function(event){
 });
 
 self.addEventListener('install', function(event){
-    if (!event.waitUntil){
-        logError('Error! event.waitUntil() not supported :(');
-    }
 
     // jump to activate stage without waiting for currentlty controlled clients to close
-    // self.skipWaiting()
+    self.skipWaiting()
 
     event.waitUntil(
-        // hold the service worker in the installing phase until tasks complete. 
-        // If the promise passed to waitUntil() rejects, the install is considered a failure, and the installing service worker is discarded.     
-
-        new Promise(resolve => {
-            // wait 3 secs to dramatize the initialization
-            setInterval(() => { resolve() }, 3000)
-        })    
-        .then(() => {
-            log('1) SW Installed');
-        })
-        .catch(err => {
-            logError('Error! Installing..', err);
-        })
+        caches.open(CACHE_NAME)
+            .then(function(cache){
+                cache.addAll(uris)
+                    .catch(err => {
+                        debugger
+                        logError('Error retrieving/adding file to cache', err)
+                    });
+            })
+            .catch(function(err){
+                logError(`Cache: Error opening Cache "${CACHE_NAME}"`, err)
+            })
     )
 });
 
 self.addEventListener('fetch', function(event) {
     console.log('Requested resource: ', event.request.url)
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                return response || fetch(event.request);
+            })
+    );
 });
