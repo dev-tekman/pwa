@@ -28,11 +28,21 @@ self.addEventListener('install', function(event){
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache){
-                cache.addAll(uris)
-                    .catch(err => {
-                        debugger
-                        logError('Error retrieving/adding file to cache', err)
-                    });
+                for (let i in uris){
+                    fetch(uris[i])
+                        .then(response => {
+                            cache.put(uris[i], response)
+                        })
+                        .catch(err => {
+                            logError(`Error retrieving file: ${uris[i]}`, err)
+                        })
+                }
+
+                // cache.addAll(uris)
+                //     .catch(err => {
+                //         debugger
+                //         logError('Error retrieving/adding file to cache', err)
+                //     });
             })
             .catch(function(err){
                 logError(`Cache: Error opening Cache "${CACHE_NAME}"`, err)
