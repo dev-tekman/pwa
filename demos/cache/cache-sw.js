@@ -1,9 +1,9 @@
 const CACHE_NAME = 'dev-tekman-v1'
 const uris = [
-    '/demos/cache/',
-    '/demos/cache/index.html',
-    '/demos/cache/cache-register.js',
-    '/assets/images/error-hero.jpg'
+    '/pwa/demos/cache/',
+    '/pwa/demos/cache/index.html',
+    '/pwa/demos/cache/cache-register.js',
+    '/pwa/assets/images/error-hero.jpg'
 ]
 
 
