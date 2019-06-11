@@ -28,10 +28,10 @@ self.addEventListener('install', function(event){
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache){
-                for (let i in uris){
-                    fetch(uris[i])
+                for (let uri of uris){
+                    fetch(uri)
                         .then(response => {
-                            cache.put(uris[i], response)
+                            cache.put(uri, response)
                         })
                         .catch(err => {
                             logError(`Error retrieving file: ${uris[i]}`, err)
