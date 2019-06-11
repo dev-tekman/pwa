@@ -11,7 +11,7 @@ export function register(){
     };
 
     window.addEventListener('load', function(){
-        const hash = '1232114766'; //Date.now();
+        const hash = '12321814766'; //Date.now();
 
         navigator.serviceWorker.register(`cache-sw.js?${hash}`) //, { scope: '/'}
         .then(function(reg){

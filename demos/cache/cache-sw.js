@@ -1,7 +1,9 @@
 const CACHE_NAME = 'dev-tekman-v1'
+
 const uris = [
     '/pwa/demos/cache/',
     '/pwa/demos/cache/index.html',
+    '/pwa/demos/cache/index-offline.html',
     '/pwa/demos/cache/cache-register.js',
     '/pwa/assets/images/error-hero.jpg'
 ]
@@ -52,10 +54,24 @@ self.addEventListener('install', function(event){
 
 self.addEventListener('fetch', function(event) {
     console.log('Requested resource: ', event.request.url)
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
-                return response || fetch(event.request);
+
+    if (event.request.url.endsWith(uris[0]) || event.request.url.endsWith(uris[1])){
+        // For the homepage, network first then cache
+        // 1. Checks if can fetch homepage
+        // 2. returns index-offline.html if fetch fails (is offline)
+        event.respondWith(
+            fetch(event.request).catch(err => {
+                return caches.match(uris[2])
             })
-    );
+        );    
+    } else {
+        // defaults to Cache first
+        event.respondWith(
+            caches.match(event.request)
+                .then(function(response) {
+                    return response || fetch(event.request);
+                })
+        );    
+    }
+
 });
