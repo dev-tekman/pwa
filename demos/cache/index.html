@@ -26,8 +26,14 @@
 	<script type="module" src="./cache-register.js"></script>
 </head>
 
-<body>
+<body onload="updateIndicator()" ononline="updateIndicator()" onoffline="updateIndicator()"></body>
 	<div class="container-fluid">
+		<div class="row m-2">
+			<div class="col-md-2 offset-md-10 text-uppercase text-right">
+				<span id="indicator-online" class="d-none" style="color: darkgreen"><i class="fa fa-signal"></i> <b>online</b></span>
+				<span id="indicator-offline" style="color: red"><i class="fa fa-ban"></i> <b>offline</b></span>
+			</div>
+		</div>
 		<div class="row m-2">
 			<div id="SwNotSupportedAlert" class="col d-none">
 				Este navegador no soporta Service Workers <i class="far fa-sad-cry"></i>
@@ -64,6 +70,18 @@
 			current = (current) ? 0 : 1
 			elem.src = logos[current];			
 		}
+
+		function updateIndicator() {
+			if (navigator.onLine) 
+			{
+				document.getElementById('indicator-online').classList.remove('d-none') 
+				document.getElementById('indicator-offline').classList.add('d-none') 
+			} else {
+				document.getElementById('indicator-online').classList.add('d-none') 
+				document.getElementById('indicator-offline').classList.remove('d-none') 
+			}
+		}
+
 	</script>
 	<script type="module">
 		import { register } from './cache-register.js'
